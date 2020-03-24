@@ -1,0 +1,12 @@
+{
+  "name": "super-sprinter-3000",
+  "author": "Victoria Eremeeva",
+  "description": "6th SI project for Codecool",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "express": "~4.16.1"
+  },
+  "devDependencies": {}
+}
