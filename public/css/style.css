@@ -1,0 +1,58 @@
+.visually-hidden {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+}
+
+.main-header {
+    margin: 40px 0;
+    margin-bottom: 70px;
+    text-align: center;
+}
+
+.user_stories {
+    padding: 0 0.8vw;
+}
+
+.user_stories__table, td, tr, th {
+    padding: 12px 9px;
+    border: 1px solid #aeaeae;
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+th {
+    font-size: 19px;
+}
+
+td {
+    font-size: 18px;
+    text-align: center;
+}
+
+.user_stories__id {
+    width: 5%;
+}
+
+.user_stories__title,
+.user_stories__status {
+    width: 13.5%;
+}
+
+.user_stories__story,
+.user_stories__acceptance {
+    width: 27%;
+}
+
+.user_stories__story--content,
+.user_stories__acceptance--content {
+    text-align: left;
+}
+
+.user_stories__business-value,
+.user_stories__estimation {
+    width: 10%;
+}
+
