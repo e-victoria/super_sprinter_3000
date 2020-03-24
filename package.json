@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "express": "~4.16.1"
+    "express": "~4.16.1",
+    "firebase": "^7.12.0"
   },
   "devDependencies": {}
 }
