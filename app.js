@@ -1,8 +1,8 @@
-const getUserStoryDataFromDb = require('./services/userStoryDao.js');
+const getUserStoryDataFromDb = require('./services/userStoryGetter.js');
+const addUserStoryToDb = require('./services/userStoryAdder.js');
 
 var express = require('express');
 var app = express();
 
-//app.use(require('./routes/static'));
-
 getUserStoryDataFromDb(app);
+addUserStoryToDb(app);
