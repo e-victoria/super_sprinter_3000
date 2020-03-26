@@ -22,4 +22,20 @@ body
                     th(class='user_stories__status') Status
                 
                 include ./tableRow.pug
+        section(class='add-story-popup popup')
+            h2(class='popup__header') Add User Story
+            form(class='popup__form')
+                label(for='new-title') Story Title:
+                input(id='new-title' type='text' minlength='5' required)
+                label(for='new-user-story') User Story:
+                textarea(id='new-user-story' type='text' required)
+                label(for='new-acceptance-criteria') Acceptance Criteria:
+                textarea(id='new-acceptance-criteria' type='text' required)
+                label(for='new-business-value') Business value:
+                input(id='new-business-value' type='number' min='100' max='1500') 
+                label(for='new-estimation') Estimation:
+                input(id='new-estimation' type='number' min='0.5' max='40')
+                div(class='popup__btn-wrapper')
+                    button(class='popup__btn popup__btn--cancel' type='submit') Cancel
+                    button(class='popup__btn' type='submit') Add new User Story
     script(src='js/index.js')
