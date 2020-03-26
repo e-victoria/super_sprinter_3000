@@ -1,0 +1,10 @@
+- var values = rows;
+for val in values
+    tr(class='user_stories__item')
+        td(class='user_stories__id user_stories__id--content')= val.id
+        td(class='user_stories__title user_stories__title--content')= val.title
+        td(class='user_stories__story user_stories__story--content')= val.user_story
+        td(class='user_stories__acceptance user_stories__acceptance--content')= val.acceptance_criteria
+        td(class='user_stories__business-value user_stories__business-value--content')= val.business_value
+        td(class='user_stories__estimation user_stories__estimation--content')= val.estimation
+        td(class='user_stories__status user_stories__status--content')= val.status

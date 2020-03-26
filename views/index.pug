@@ -1,0 +1,25 @@
+doctype html
+html(lang='en')
+head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Super sprinter 3000
+    link(rel='stylesheet', href='css/style.css')
+body
+    main
+        h1(class='main-header') Super Sprinter 3000
+        section(class='user_stories')
+            h2(class='visually-hidden') User stories
+            button(id='add-story-btn') Add user story
+            table(class='user_stories__table')
+                tr
+                    th(class='user_stories__id') Id
+                    th(class='user_stories__title') Title
+                    th(class='user_stories__story') Story
+                    th(class='user_stories__acceptance') Acceptance criteria
+                    th(class='user_stories__business-value') Business value
+                    th(class='user_stories__estimation') Estimation
+                    th(class='user_stories__status') Status
+                
+                include ./tableRow.pug
+    script(src='js/index.js')

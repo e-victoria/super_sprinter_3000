@@ -17,6 +17,7 @@
 }
 
 .user_stories__table, td, tr, th {
+    color: #161616;
     padding: 12px 9px;
     border: 1px solid #aeaeae;
     border-collapse: collapse;
@@ -46,6 +47,16 @@ td {
     width: 27%;
 }
 
+.user_stories__title--content {
+    font-size: 19px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.user_stories__title--content:hover {
+    text-decoration: underline;
+}
+
 .user_stories__story--content,
 .user_stories__acceptance--content {
     text-align: left;
@@ -56,3 +67,18 @@ td {
     width: 10%;
 }
 
+#add-story-btn {
+    display: inline-block;
+    margin-bottom: 30px;
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    box-shadow: 0 0 2px #151a35;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+#add-story-btn:hover {
+    box-shadow: 0 0 3px #0f1225;
+}

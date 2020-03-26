@@ -9,5 +9,7 @@
     "express": "~4.16.1",
     "firebase": "^7.12.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "pug": "^2.0.4"
+  }
 }
