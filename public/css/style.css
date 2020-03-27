@@ -124,10 +124,16 @@ td {
 }
 
 .popup__form input,
-.popup__form textarea {
+.popup__form textarea,
+#changed-status {
     margin-bottom: 20px;
     padding: 8px;
     font-size: 14px;
+    border: 1px solid #b3b3b3;
+}
+
+#changed-status {
+    height: 35px;
 }
 
 .popup__btn-wrapper {

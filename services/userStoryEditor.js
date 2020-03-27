@@ -4,7 +4,7 @@ var firebase = require("firebase/app");
 require('firebase/auth');
 require('firebase/database');
 
-function addUserStoryToDb(app) {
+function editUserStoryToDb(app) {
     const userStoryDatabase = firebase.database();
 
     app.use(bodyParser.json());
@@ -12,9 +12,9 @@ function addUserStoryToDb(app) {
         extended: true
     }));
 
-    app.post('/add_new_story', function (req, res) {
+    app.post('/edit_story', function (req, res) {
         const id = req.body["id"];
-        const newStory = req.body["newStory"];
+        const newStory = req.body["editedStory"];
         var estimatesRef = userStoryDatabase.ref().child('user_stories').child(id);
         estimatesRef.once('value', function (estimatesSnapshot) {
             var updates = {};
@@ -27,4 +27,4 @@ function addUserStoryToDb(app) {
     });
 }
 
-module.exports = addUserStoryToDb;
+module.exports = editUserStoryToDb;

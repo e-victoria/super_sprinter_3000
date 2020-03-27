@@ -38,4 +38,27 @@ body
                 div(class='popup__btn-wrapper')
                     button(class='popup__btn add-popup__btn--cancel' type='submit') Cancel
                     button(class='popup__btn add-popup__btn--submit' type='submit') Add new User Story
+        section(class='edit-story-popup popup')
+            h2(class='popup__header') Edit User Story
+            form(class='popup__form')
+                label(for='changed-title') Story Title:
+                input(id='changed-title' name='title' type='text' minlength='5' required)
+                label(for='changed-user-story') User Story:
+                textarea(id='changed-user-story' name='user_story' type='text' required)
+                label(for='changed-acceptance-criteria') Acceptance Criteria:
+                textarea(id='changed-acceptance-criteria' name='acceptance_criteria' type='text' required)
+                label(for='changed-business-value') Business value:
+                input(id='changed-business-value' name='business_value' type='number' min='100' max='1500') 
+                label(for='changed-estimation') Estimation:
+                input(id='changed-estimation' name='estimation' type='number' min='0.5' max='40')
+                label(for='changed-status') Status:
+                select(id='changed-status' name='status')
+                    <option value="planning">planning</option>
+                    <option value="todo">todo</option>
+                    <option value="in_progress">in progress</option>
+                    <option value="review">review</option>
+                    <option value="done">done</option>
+                div(class='popup__btn-wrapper')
+                    button(class='popup__btn edit-popup__btn--cancel' type='submit') Cancel
+                    button(class='popup__btn edit-popup__btn--submit' type='submit') Edit User Story
     script(src='js/index.js')

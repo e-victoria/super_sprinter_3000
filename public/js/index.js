@@ -1,12 +1,64 @@
 const addStoryBtn = document.getElementById('add-story-btn');
 const addStoryPopup = document.querySelector('.add-story-popup');
+const userStories = document.querySelectorAll('.user_stories__title--content');
+const editStoryPopup = document.querySelector('.edit-story-popup');
 
 const xmlHttpRequest = new XMLHttpRequest();
+
+for (let i = 0; i < userStories.length; i++) {
+    userStories[i].onclick = () => {
+        const closePopupBtn = document.querySelector('.edit-popup__btn--cancel');
+        const submitBtn = document.querySelector('.edit-popup__btn--submit');
+        editStoryPopup.classList.add('add-story-popup--opened');
+
+        const inputs = this.collectFormData(editStoryPopup);
+        const tableRow = document.querySelectorAll('.user_stories__item')[i];
+        const oldValues = [...tableRow.getElementsByTagName('td')];
+        
+        for (let j = 0; j < inputs.length; j++) {
+            if (inputs[j].tagName === 'INPUT') {
+                inputs[j].value = oldValues[j+1].textContent;
+            } else if (inputs[j].tagName === 'SELECT') {
+                const options = inputs[j].querySelectorAll('option');
+                for (let option of options) {
+                    if (option.textContent === oldValues[j+1].textContent) {
+                        option.selected = true;
+                    }
+                }
+            } else {
+                inputs[j].textContent = oldValues[j+1].textContent;
+            }   
+        }
+
+        closePopupBtn.onclick = (e) => {
+            e.preventDefault();
+            editStoryPopup.classList.remove('add-story-popup--opened');
+        }
+
+        submitBtn.onclick = (e) => {
+            e.preventDefault();
+            const editedData = {};
+            const dataToSend = {};
+            dataToSend["id"] = i;
+            for (let input of inputs) {
+                editedData[input['name']] = input.value;
+            }
+            dataToSend["editedStory"] = editedData;
+            xmlHttpRequest.open('POST', '/edit_story');
+            xmlHttpRequest.setRequestHeader('Content-Type', 'application/json');
+            xmlHttpRequest.send(JSON.stringify(dataToSend));
+            xmlHttpRequest.onload = () => {
+                editStoryPopup.classList.remove('add-story-popup--opened');
+                console.log('successful');
+            }
+        }
+    }
+}
 
 addStoryBtn.onclick = (e) => {
     const closePopupBtn = document.querySelector('.add-popup__btn--cancel');
     const submitBtn = document.querySelector('.add-popup__btn--submit');
-    const inputs = this.collectFormData();
+    const inputs = this.collectFormData(addStoryPopup);
 
     e.preventDefault();
     addStoryPopup.classList.add('add-story-popup--opened');
@@ -36,19 +88,15 @@ addStoryBtn.onclick = (e) => {
         xmlHttpRequest.open('POST', '/add_new_story');
         dataToSend["newStory"] = newStoryJson;
         xmlHttpRequest.setRequestHeader('Content-Type', 'application/json');
-        console.log(JSON.stringify(dataToSend))
         xmlHttpRequest.send(JSON.stringify(dataToSend));
         xmlHttpRequest.onload = () => {
+            addStoryPopup.classList.remove('add-story-popup--opened');
             console.log('successful');
         }
     }
 };
 
-collectFormData = () => {
-    const inputs = [...addStoryPopup.getElementsByTagName('input')];
-    const textareas = [...addStoryPopup.getElementsByTagName('textarea')];
-    for (let textarea of textareas) {
-        inputs.push(textarea);
-    }
+collectFormData = (popup) => {
+    const inputs = popup.querySelectorAll('input, textarea, select');
     return inputs;
 };
