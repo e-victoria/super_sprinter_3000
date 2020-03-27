@@ -45,9 +45,10 @@ for (let i = 0; i < userStories.length; i++) {
                 editedData[input['name']] = input.value;
             }
             
-            dataToSend["editedStory"] = editedData;
+            dataToSend["story"] = editedData;
             this.postToServer('/edit_story', dataToSend);
             this.getResponseFromServer();
+            editStoryPopup.classList.remove('add-story-popup--opened');
         }
     }
 }
@@ -82,19 +83,19 @@ addStoryBtn.onclick = (e) => {
             newStoryJson[input['name']] = input.value;
         }
 
-        dataToSend["newStory"] = newStoryJson;
+        dataToSend["story"] = newStoryJson;
         this.postToServer('/add_new_story', dataToSend);
         this.getResponseFromServer();
+        addStoryPopup.classList.remove('add-story-popup--opened');
     }
 };
 
 getResponseFromServer = () => {
     xmlHttpRequest.onload = () => {
         if (xmlHttpRequest.status == '200') {
-            addStoryPopup.classList.remove('add-story-popup--opened');
             console.log('successful');
         } else {
-            console.log('Some error: ' + xmlHttpRequest.responseText)
+            console.log('Some error: ' + xmlHttpRequest.status)
         }
     }
 }
