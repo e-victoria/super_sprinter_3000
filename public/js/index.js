@@ -19,6 +19,14 @@ addStoryBtn.onclick = (e) => {
     submitBtn.onclick = (e) => {
         e.preventDefault();
 
+        const idsColumnds = document.querySelectorAll('.user_stories__id--content');
+        const ids = [];
+        for (let id of idsColumnds) {
+            ids.push(parseInt(id.innerHTML));
+        }
+        let newStoryId = Math.max(...ids) + 1;
+        const dataToSend = {};
+        dataToSend["id"] = newStoryId;
         const newStoryJson = {};
 
         for (let input of inputs) {
@@ -26,9 +34,10 @@ addStoryBtn.onclick = (e) => {
         }
 
         xmlHttpRequest.open('POST', '/add_new_story');
-        console.log(JSON.stringify(newStoryJson));
+        dataToSend["newStory"] = newStoryJson;
         xmlHttpRequest.setRequestHeader('Content-Type', 'application/json');
-        xmlHttpRequest.send(JSON.stringify(newStoryJson));
+        console.log(JSON.stringify(dataToSend))
+        xmlHttpRequest.send(JSON.stringify(dataToSend));
         xmlHttpRequest.onload = () => {
             console.log('successful');
         }

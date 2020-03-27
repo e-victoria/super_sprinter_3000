@@ -33,12 +33,11 @@ function getTaskStatus(userStoryData, app) {
 
 
 function createUserStory(userStoryData, app, statusData) {
-    let rowsAmount = '';
-    for (let i = 0; i < userStoryData.length; i++) {
-        rowsAmount += '1';
-        userStoryData[i]["id"] = Object.keys(userStoryData)[i];
-        const statusId = userStoryData[i]["status"];
-        userStoryData[i]["status"] = statusData[statusId]['status'];
+    const ids = Object.keys(userStoryData);
+    for (let i = 0; i < ids.length; i++) {
+        userStoryData[ids[i]]["id"] = ids[i];
+        // const statusId = userStoryData["status"];
+        // userStoryData["status"] = statusData['status'];
     }
     app.set('view engine', 'pug');
     app.get('/', function (req, res) {
@@ -47,7 +46,6 @@ function createUserStory(userStoryData, app, statusData) {
                 rows: userStoryData
             });
     })
-    app.listen(3000);
 }
 
 module.exports = getUserStoryDataFromDb;
