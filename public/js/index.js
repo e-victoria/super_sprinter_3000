@@ -40,17 +40,15 @@ for (let i = 0; i < userStories.length; i++) {
             const editedData = {};
             const dataToSend = {};
             dataToSend["id"] = i;
+
             for (let input of inputs) {
                 editedData[input['name']] = input.value;
             }
-            dataToSend["editedStory"] = editedData;
-            xmlHttpRequest.open('POST', '/edit_story');
-            xmlHttpRequest.setRequestHeader('Content-Type', 'application/json');
-            xmlHttpRequest.send(JSON.stringify(dataToSend));
-            xmlHttpRequest.onload = () => {
-                editStoryPopup.classList.remove('add-story-popup--opened');
-                console.log('successful');
-            }
+            
+            dataToSend["story"] = editedData;
+            this.postToServer('/edit_story', dataToSend);
+            this.getResponseFromServer();
+            editStoryPopup.classList.remove('add-story-popup--opened');
         }
     }
 }
@@ -85,16 +83,28 @@ addStoryBtn.onclick = (e) => {
             newStoryJson[input['name']] = input.value;
         }
 
-        xmlHttpRequest.open('POST', '/add_new_story');
-        dataToSend["newStory"] = newStoryJson;
-        xmlHttpRequest.setRequestHeader('Content-Type', 'application/json');
-        xmlHttpRequest.send(JSON.stringify(dataToSend));
-        xmlHttpRequest.onload = () => {
-            addStoryPopup.classList.remove('add-story-popup--opened');
-            console.log('successful');
-        }
+        dataToSend["story"] = newStoryJson;
+        this.postToServer('/add_new_story', dataToSend);
+        this.getResponseFromServer();
+        addStoryPopup.classList.remove('add-story-popup--opened');
     }
 };
+
+getResponseFromServer = () => {
+    xmlHttpRequest.onload = () => {
+        if (xmlHttpRequest.status == '200') {
+            console.log('successful');
+        } else {
+            console.log('Some error: ' + xmlHttpRequest.status)
+        }
+    }
+}
+
+postToServer = (uri, dataToSend) => {
+    xmlHttpRequest.open('POST', uri);
+    xmlHttpRequest.setRequestHeader('Content-Type', 'application/json');
+    xmlHttpRequest.send(JSON.stringify(dataToSend));
+}
 
 collectFormData = (popup) => {
     const inputs = popup.querySelectorAll('input, textarea, select');
