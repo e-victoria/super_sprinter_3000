@@ -1,3 +1,5 @@
+import FormValidator from './FormValidator.js';
+
 const addStoryBtn = document.getElementById('add-story-btn');
 const addStoryPopup = document.querySelector('.add-story-popup');
 const userStories = document.querySelectorAll('.user_stories__title--content');
