@@ -48,9 +48,9 @@ body
                 label(for='changed-acceptance-criteria') Acceptance Criteria:
                 textarea(id='changed-acceptance-criteria' name='acceptance_criteria' type='text' required)
                 label(for='changed-business-value') Business value:
-                input(id='changed-business-value' name='business_value' type='number' min='100' max='1500') 
+                input(id='changed-business-value' name='business_value' type='number' min='100' max='1500' step='100') 
                 label(for='changed-estimation') Estimation:
-                input(id='changed-estimation' name='estimation' type='number' min='0.5' max='40')
+                input(id='changed-estimation' name='estimation' type='number' min='0.5' max='40' step='0.5')
                 label(for='changed-status') Status:
                 select(id='changed-status' name='status')
                     <option value="planning">planning</option>
@@ -61,4 +61,4 @@ body
                 div(class='popup__btn-wrapper')
                     button(class='popup__btn edit-popup__btn--cancel' type='submit') Cancel
                     button(class='popup__btn edit-popup__btn--submit' type='submit') Edit User Story
-    script(src='js/index.js')
+    script(src='js/index.js' type='module')

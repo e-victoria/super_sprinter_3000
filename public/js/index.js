@@ -13,23 +13,23 @@ for (let i = 0; i < userStories.length; i++) {
         const submitBtn = document.querySelector('.edit-popup__btn--submit');
         editStoryPopup.classList.add('add-story-popup--opened');
 
-        const inputs = this.collectFormData(editStoryPopup);
+        const inputs = collectFormData(editStoryPopup);
         const tableRow = document.querySelectorAll('.user_stories__item')[i];
         const oldValues = [...tableRow.getElementsByTagName('td')];
-        
+
         for (let j = 0; j < inputs.length; j++) {
             if (inputs[j].tagName === 'INPUT') {
-                inputs[j].value = oldValues[j+1].textContent;
+                inputs[j].value = oldValues[j + 1].textContent;
             } else if (inputs[j].tagName === 'SELECT') {
                 const options = inputs[j].querySelectorAll('option');
                 for (let option of options) {
-                    if (option.textContent === oldValues[j+1].textContent) {
+                    if (option.textContent === oldValues[j + 1].textContent) {
                         option.selected = true;
                     }
                 }
             } else {
-                inputs[j].textContent = oldValues[j+1].textContent;
-            }   
+                inputs[j].textContent = oldValues[j + 1].textContent;
+            }
         }
 
         closePopupBtn.onclick = (e) => {
@@ -39,6 +39,7 @@ for (let i = 0; i < userStories.length; i++) {
 
         submitBtn.onclick = (e) => {
             e.preventDefault();
+            const formValidator = new FormValidator(editStoryPopup);
             const editedData = {};
             const dataToSend = {};
             dataToSend["id"] = i;
@@ -46,11 +47,16 @@ for (let i = 0; i < userStories.length; i++) {
             for (let input of inputs) {
                 editedData[input['name']] = input.value;
             }
-            
+
             dataToSend["story"] = editedData;
-            this.postToServer('/edit_story', dataToSend);
-            this.getResponseFromServer();
-            editStoryPopup.classList.remove('add-story-popup--opened');
+
+            if (formValidator.getIsValid()) {
+                postToServer('/edit_story', dataToSend);
+                getResponseFromServer();
+                editStoryPopup.classList.remove('add-story-popup--opened');
+            } else {
+                alert('not valid');
+            }
         }
     }
 }
@@ -58,7 +64,7 @@ for (let i = 0; i < userStories.length; i++) {
 addStoryBtn.onclick = (e) => {
     const closePopupBtn = document.querySelector('.add-popup__btn--cancel');
     const submitBtn = document.querySelector('.add-popup__btn--submit');
-    const inputs = this.collectFormData(addStoryPopup);
+    const inputs = collectFormData(addStoryPopup);
 
     e.preventDefault();
     addStoryPopup.classList.add('add-story-popup--opened');
@@ -71,6 +77,7 @@ addStoryBtn.onclick = (e) => {
     submitBtn.onclick = (e) => {
         e.preventDefault();
 
+        const formValidator = new FormValidator(addStoryPopup);
         const idsColumnds = document.querySelectorAll('.user_stories__id--content');
         const ids = [];
         for (let id of idsColumnds) {
@@ -86,13 +93,18 @@ addStoryBtn.onclick = (e) => {
         }
 
         dataToSend["story"] = newStoryJson;
-        this.postToServer('/add_new_story', dataToSend);
-        this.getResponseFromServer();
-        addStoryPopup.classList.remove('add-story-popup--opened');
+
+        if (formValidator.getIsValid()) {
+            postToServer('/add_new_story', dataToSend);
+            getResponseFromServer();
+            addStoryPopup.classList.remove('add-story-popup--opened');
+        } else {
+            alert('not valid');
+        }
     }
 };
 
-getResponseFromServer = () => {
+function getResponseFromServer() {
     xmlHttpRequest.onload = () => {
         if (xmlHttpRequest.status == '200') {
             console.log('successful');
@@ -102,13 +114,13 @@ getResponseFromServer = () => {
     }
 }
 
-postToServer = (uri, dataToSend) => {
+function postToServer (uri, dataToSend) {
     xmlHttpRequest.open('POST', uri);
     xmlHttpRequest.setRequestHeader('Content-Type', 'application/json');
     xmlHttpRequest.send(JSON.stringify(dataToSend));
 }
 
-collectFormData = (popup) => {
+function collectFormData (popup) {
     const inputs = popup.querySelectorAll('input, textarea, select');
     return inputs;
 };
